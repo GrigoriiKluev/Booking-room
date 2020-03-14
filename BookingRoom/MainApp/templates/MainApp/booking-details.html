@@ -1,0 +1,39 @@
+{% extends 'MainApp/Base.html' %}
+
+<!doctype html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}
+    {{ title|title }}
+  {% endblock %}
+  </title>
+</head>
+<body>
+
+{% block context %}
+		
+                          <tr>Комната № :{{obj.id }}
+                            <td><p>Название : {{obj.room_name}}</p></td>
+                            <td><p>Кол-во мест : {{obj.seets_count}}</p></td>
+							             <td><p>Наличие проектора : {{obj.projector}}</p></td>
+                            <td><p>Наличие доски : {{obj.desk}}</p></td>
+						              </tr>
+  						
+                  
+  							<form action = "{% url 'updated_room_page' %}" method="post">
+  								{% csrf_token %}
+  								{{ form }}
+                  
+  								<input type="submit" value="Забронировать">
+  							
+  							</form>
+  		
+
+
+{% endblock %}
+
+
+</body>
+</html>
