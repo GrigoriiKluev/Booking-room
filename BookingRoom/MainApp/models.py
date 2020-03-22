@@ -43,3 +43,7 @@ class BookingProfile(models.Model):
 	@staticmethod
 	def get_items():
 		return BookingProfile.objects.all()
+
+	@staticmethod
+	def delete_item():
+		return BookingProfile.objects.filter(id=id).delete()

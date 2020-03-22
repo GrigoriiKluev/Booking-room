@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import get_info
+from .views import Info
 from django.urls import path
 
 
@@ -7,7 +7,7 @@ from django.urls import path
 
 urlpatterns = [
     
-    path('', get_info, name = 'RoomInfo'),
+    path('',Info.as_view(), name='RoomInfo'),
     
     
 ]

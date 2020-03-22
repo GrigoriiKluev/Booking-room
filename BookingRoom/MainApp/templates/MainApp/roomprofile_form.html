@@ -1,5 +1,5 @@
 {% extends 'MainApp/Base.html' %}
-<!DOCTYPE html>
+
 
 <html>
 <head>
@@ -10,7 +10,6 @@
     </title>
 </head>
 	<body>
-		
             {% block context %}
                         {% for val in room %}
                           <tr>Комната № :{{val.id }}
@@ -21,7 +20,7 @@
                             <td><p>Забронировано с : {{val.boking_time}}</p></td>
                             <td><p>Забронировано до : {{val.booked_time}}</p></td>
                             <td><p>статус : {{val.status}}</p></td>
-                            <td><button><a href ="{% url 'booking' pk=val.id  %}" >Забронировать</a></button></td>
+                            <td><button><a href ="{% url 'booking' pk=val.id %}" >Забронировать</a></button></td>
 
                             <br>
                           </tr>
