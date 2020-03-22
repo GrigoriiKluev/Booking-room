@@ -1,0 +1,35 @@
+{% extends 'MainApp/Base.html' %}
+
+
+<html>
+<head>
+<meta charset="utf-8">
+	<title>{% block title %}
+            {{title|title}}
+           {% endblock %}
+    </title>
+</head>
+	<body>
+            {% block context %}
+                        {% for val in room %}
+                          <tr>Комната № :{{val.id }}
+                            <td><p>Название : {{val.room_name}}</p></td>
+                            <td><p>Кол-во мест : {{val.seets_count}}</p></td>
+                            <td><p>Наличие проектора : {{val.projector}}</p></td>
+                            <td><p>Наличие доски : {{val.desk}}</p></td>
+                            <td><p>Забронировано с : {{val.boking_time}}</p></td>
+                            <td><p>Забронировано до : {{val.booked_time}}</p></td>
+                            <td><p>статус : {{val.status}}</p></td>
+                            <td><button><a href ="{% url 'booking' pk=val.id %}" >Забронировать</a></button></td>
+
+                            <br>
+                          </tr>
+                        
+                        {% endfor %}
+                    
+                
+            {% endblock %}
+                     
+        
+    </body>
+</html>
