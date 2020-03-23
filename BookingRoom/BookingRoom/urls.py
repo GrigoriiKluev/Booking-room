@@ -27,6 +27,6 @@ urlpatterns = [
     
     #path('', include(urls, namespace='main')),
     path('booking/<int:pk>/', mainappviews.BookingDetails.as_view(), name='booking'),
-    path('update/', mainappviews.UpdatedRoom.as_view(), name ='updated_room_page'),
-    path('delete/<int:pk>/', mainappviews.DeleteBook.as_view(), name ='delete')
+    path('update/', mainappviews.UpdatedRoom.as_view(), name ='updated_room_page')
+    
     ]
