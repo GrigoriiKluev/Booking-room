@@ -63,4 +63,5 @@ class DeleteBook(DeleteView):
     template_name = "MainApp/delete_book.html"
     success_url = reverse_lazy('updated_room_page')
 
-    
+
+

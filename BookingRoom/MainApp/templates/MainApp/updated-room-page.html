@@ -1,4 +1,5 @@
 {% extends 'MainApp/Base.html' %}
+{% load static %}
 
 <html>
 <head>
@@ -7,12 +8,15 @@
             {{title|title}}
            {% endblock %}
     </title>
+
+
 </head>
 	<body>
 
                     {% block context %}
-
+<div class="wrap" >
                       {% for val in room %}
+                        <div class="description">
                           <tr>Комната № :{{val.id }}
                             <td><p>Название : {{val.room_name}}</p></td>
                             <td><p>Кол-во мест : {{val.seets_count}}</p></td>
@@ -32,9 +36,10 @@
                             {% endfor %}
 
                           </tr>
+                           </div>
                     {% endfor %}
 
-
+</div>
                     {% endblock %}
 
 

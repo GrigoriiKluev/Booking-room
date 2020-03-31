@@ -18,7 +18,8 @@ from django.conf.urls import url, include
 from MainApp import urls as mainappurls, views as mainappviews
 from django.urls import path
 from AuthApp import urls as authappurls
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +30,5 @@ urlpatterns = [
     path('booking/<int:pk>/', mainappviews.BookingDetails.as_view(), name='booking'),
     path('update/', mainappviews.UpdatedRoom.as_view(), name ='updated_room_page'),
     path('delete/<int:pk>/', mainappviews.DeleteBook.as_view(), name ='delete')
-    ]
+    ]\
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

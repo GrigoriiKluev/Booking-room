@@ -1,4 +1,5 @@
 {% extends 'MainApp/Base.html' %}
+{% load static %}
 
 
 <html>
@@ -8,11 +9,20 @@
             {{title|title}}
            {% endblock %}
     </title>
+
 </head>
 	<body>
+
             {% block context %}
+
+<div class="wrap" >
+
                         {% for val in room %}
+
+                        <div class="description">
                           <tr>Комната № :{{val.id }}
+                            <div class = "pic"><img src= "{{ MEDIA_ROOT }}{{ val.img_path.url }}" alt="My image" width="400" height="300"/></div>
+
                             <td><p>Название : {{val.room_name}}</p></td>
                             <td><p>Кол-во мест : {{val.seets_count}}</p></td>
                             <td><p>Наличие проектора : {{val.projector}}</p></td>
@@ -24,12 +34,13 @@
 
                             <br>
                           </tr>
-                        
+                                  </div>
                         {% endfor %}
-                    
-                
+</div>
+
+
             {% endblock %}
-                     
+
         
     </body>
 </html>

@@ -1,6 +1,7 @@
-from django.conf.urls import url
+
 from .views import Info
 from django.urls import path
+
 
 
 
