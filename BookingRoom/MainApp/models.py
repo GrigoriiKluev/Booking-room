@@ -5,6 +5,7 @@ from django.utils.timezone import now
 class RoomProfile(models.Model):
 	id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
 	room_name = models.CharField(verbose_name = "Название " , max_length = 64 , blank = True )
+	img_path = models.ImageField(upload_to='pict')
 	seets_count = models.PositiveIntegerField(verbose_name = "Количество мест" , default = 0)
 	projector = models.BooleanField(verbose_name= "Наличие проектора", default = True)
 	desk = models.BooleanField(verbose_name= "Наличие доски", default = True)
