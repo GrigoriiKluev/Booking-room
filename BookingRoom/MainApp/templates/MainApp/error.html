@@ -1,0 +1,48 @@
+{% extends 'MainApp/Base.html' %}
+{% load static %}
+
+<html>
+<head>
+<meta charset="utf-8">
+	<title>{% block title %}
+            {{title|title}}
+           {% endblock %}
+    </title>
+
+</head>
+	<body>
+
+                    {% block context %}
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Error{{object.id}}</h4>
+                                <h4>Введите корректное время брони</h4>
+                            </div>
+
+
+
+  							<form action = "{% url 'updated_room_page' %}" method="post">
+  								{% csrf_token %}
+
+
+  								{{ form }}
+
+
+  								<button type="submit" class="btn btn-success">Забронировать</button>
+
+  							</form>
+                            </div>
+
+
+
+                    {% endblock %}
+
+
+
+
+
+                     }
+
+    </body>
+</html>

@@ -23,10 +23,10 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('info/', include(mainappurls)),
-    path('', include(authappurls)),
+    path('info/', include(mainappurls),name ='info'),
+    path('', include(authappurls), name='auth'),
     
-    #path('', include(urls, namespace='main')),
+    path('error.html/', mainappviews.UpdatedRoom.as_view(), name ='updated_room_page'),
     path('booking/<int:pk>/', mainappviews.BookingDetails.as_view(), name='booking'),
     path('update/', mainappviews.UpdatedRoom.as_view(), name ='updated_room_page'),
     path('delete/<int:pk>/', mainappviews.DeleteBook.as_view(), name ='delete')

@@ -126,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/MainApp/templates/MainApp/roomprofile_form.html'
 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
@@ -134,3 +134,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'pict/')
 MEDIA_URL = '/pict/'
+AUTH_USER_MODEL = 'AuthApp.BookUser'

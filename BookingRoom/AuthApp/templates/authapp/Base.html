@@ -21,22 +21,8 @@
     {% block logo %}
             <div class="log">
                 <div class="image">
-                     <a href="{% url 'mainapp:RoomInfo' %}"> <img class="logo" src="{% static 'image/metal.jpg' %}"/></a>
+                     <img class="logo" src="{% static 'image/metal.jpg' %}"/>
                 </div>
-                    <div class="login">
-                {% if request.user.is_authenticated %}
-
-                    <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:register' %}" >Register</a></button>
-                    <b>{{ request.user }}</b>
-                    <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:logout' %}" >Logout</a></button>
-
-                {% else %}
-
-                    <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:register' %}" >Register</a></button>
-                    <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:login' %}" >Login</a></button>
-
-                {% endif %}
-                    </div>
             </div>
     {% endblock %}
 <div class="container">
