@@ -11,48 +11,39 @@
 
 
 </head>
-	<body>
+<body>
 
-                    {% block context %}
-<div class="wrap" >
-                      {% for val in room %}
-                        <div class="description">
-                          <tr>Комната № :{{val.id }}
-                            <td><p>Название : {{val.room_name}}</p></td>
-                            <td><p>Кол-во мест : {{val.seets_count}}</p></td>
-                            <td><p>Наличие проектора : {{val.projector}}</p></td>
-                            <td><p>Наличие доски : {{val.desk}}</p></td>
-                            {% for t in obj %}
-                            {% if val.id == t.booking_id %}
+        {% block context %}
+            <div class="wrap" >
+                  {% for val in room %}
+                    <div class="description">
+                      <tr>Комната № :{{val.id }}
+                        <td><p>Название : {{val.room_name}}</p></td>
+                        <td><p>Кол-во мест : {{val.seets_count}}</p></td>
+                        <td><p>Наличие проектора : {{val.projector}}</p></td>
+                        <td><p>Наличие доски : {{val.desk}}</p></td>
+                        {% for t in obj %}
+                              {% if val.id == t.booking_id %}
                               <td>Author: {{ t.author }} </td>
                               <td>Дата: {{ t.day }} </td>
                               <td>Забронировано с: {{ t.booking_time }} </td>
                               <td>Забронировано до: {{ t.booked_time }} </td>
                               <td><p>Cтатус : {{t.status}}</p></td>
-                              {% if request.user == t.author %}
-                              <td><button type="button" class="btn btn-danger"><a href="{% url 'delete' pk=t.id %}">Отменить</a> </button>
-                              <button type="button" class="btn btn-success"><a href="{% url 'mainapp:RoomInfo' %}">Назад</a> </button>
-                              </td><br>
-                              {% else %}
-                              <td> <p>Нет доступа</p></td>
+                                  {% if request.user == t.author %}
+                                  <td><button type="button" class="btn btn-danger"><a href="{% url 'delete' pk=t.id %}">Отменить</a> </button>
+                                  <button type="button" class="btn btn-success"><a href="{% url 'mainapp:RoomInfo' %}">Назад</a> </button>
+                                  </td><br>
+                                  {% else %}
+                                  <td> <p>Нет доступа</p></td>
                               {% endif %}
+                             {% endif %}
+                        {% endfor %}
 
+                      </tr>
+                    </div>
+                   {% endfor %}
 
-                            {% endif %}
-                            {% endfor %}
-
-                          </tr>
-                           </div>
-                    {% endfor %}
-
-</div>
-                    {% endblock %}
-
-
-
-
-
-                     }
-
-    </body>
+            </div>
+        {% endblock %}
+</body>
 </html>

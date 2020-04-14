@@ -1,11 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse, get_object_or_404
 from MainApp.models import RoomProfile, BookingProfile
-from django.views.generic import DetailView, View, TemplateView,DeleteView,CreateView
+from django.views.generic import View, TemplateView, DeleteView, CreateView
 from MainApp.forms import BookingFormer
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
-
 
 
 class Info(TemplateView):
@@ -19,17 +17,9 @@ class Info(TemplateView):
         }
         return render(request, self.template_name, object_list)
 
-class CustomSuccessMessageMixin:
-    @property
-    def success_msg(self):
-        return False
-    def form_valid(self,form):
-        messages.success(self.request, self.success_msg)
-        return super().form_valid(form)
 
-class BookingDetails(LoginRequiredMixin,CreateView):
+class BookingDetails(LoginRequiredMixin, CreateView):
     login_url = '/login/'
-    redirect_field_name = 'author'
 
     def get(self, request, pk):
         title = "Бронирование "
@@ -38,7 +28,6 @@ class BookingDetails(LoginRequiredMixin,CreateView):
         if request.method == "POST":
             room_form = BookingFormer(request.POST, request.FILES)
             if room_form.is_valid():
-
                 room_form.save()
 
                 return HttpResponseRedirect(reverse("updated_room_page"))
@@ -50,14 +39,9 @@ class BookingDetails(LoginRequiredMixin,CreateView):
             'obj': obj,
         }
         return render(request, "MainApp/booking-details.html", context)
-'''
-    def form_valid(self,form):
-        self.object = form.save(commit=False)
-        self.object.author = self.request.user
-        self.object.save()
-        return super().form_valid(form)
-'''
-class UpdatedRoom(LoginRequiredMixin,View):
+
+
+class UpdatedRoom(LoginRequiredMixin, View):
     login_url = '/login/'
     redirect_field_name = 'author'
     template_name = "MainApp/updated-room-page.html"
@@ -72,15 +56,18 @@ class UpdatedRoom(LoginRequiredMixin,View):
         }
         return render(request, self.template_name, context)
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         book_form = BookingFormer(request.POST)
-        if book_form.is_valid():
-            owner = book_form.save(commit=False)
-            owner.author = request.user
-            owner.save()
-
+        if book_form.is_valid() and BookingProfile.correct_time:
+            data_day = book_form.cleaned_data.get('day')
+            input_time_from = book_form.cleaned_data.get('booking_time')
+            input_time_to = book_form.cleaned_data.get('booked_time')
+            book = book_form.cleaned_data.get('booking')
+            update = HttpResponseRedirect(reverse('updated_room_page'))
+            BookingProfile.booking_compare(data_day, book, data_day, input_time_to, input_time_from, book_form, request,
+                                           update)
             return HttpResponseRedirect(reverse("updated_room_page"))
-
         else:
             title = "Обновленная Информация"
             room_form = BookingFormer()
@@ -91,12 +78,14 @@ class UpdatedRoom(LoginRequiredMixin,View):
             }
             return render(request, "MainApp/error.html", context)
 
-class DeleteBook(LoginRequiredMixin,DeleteView):
+
+class DeleteBook(LoginRequiredMixin, DeleteView):
     login_url = '/login/'
     redirect_field_name = 'author'
     model = BookingProfile
     template_name = "MainApp/delete_book.html"
     success_url = reverse_lazy('updated_room_page')
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.request.user != self.object.author:
@@ -105,5 +94,12 @@ class DeleteBook(LoginRequiredMixin,DeleteView):
         return HttpResponseRedirect(self.success_url)
 
 
-
-
+def error(request):
+    title = "Обновленная Информация"
+    room_form = BookingFormer()
+    context = {
+        'title': title,
+        'form': room_form,
+        'obj': RoomProfile.get_items,
+    }
+    return render(request, "MainApp/error.html", context)
