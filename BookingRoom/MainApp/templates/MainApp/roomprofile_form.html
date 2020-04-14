@@ -20,20 +20,18 @@
                         {% for val in room %}
 
                         <div class="description">
-                          <tr>Комната № :{{val.id }}
-                            <div class = "pic"><img src= "{{ MEDIA_ROOT }}{{ val.img_path.url }}" alt="My image" width="400" height="300"/></div>
+                          <ul><h3>Комната № :{{val.id }}</h3>
+                            <div class = "pic"><img src= "{{ MEDIA_ROOT }}{{ val.img_path.url }}" alt="My image" /></div>
 
-                            <td><p>Название : {{val.room_name}}</p></td>
-                            <td><p>Кол-во мест : {{val.seets_count}}</p></td>
-                            <td><p>Наличие проектора : {{val.projector}}</p></td>
-                            <td><p>Наличие доски : {{val.desk}}</p></td>
-                            <td><p>Забронировано с : {{val.boking_time}}</p></td>
-                            <td><p>Забронировано до : {{val.booked_time}}</p></td>
-                            <td><p>статус : {{val.status}}</p></td>
-                            <td><button><a href ="{% url 'booking' pk=val.id %}" >Забронировать</a></button></td>
+                            <li><h4>Название : {{val.room_name}}</h4></li>
+                            <li><p>Кол-во мест : {{val.seets_count}}</p></li>
+                            <li><p>Наличие проектора : {{val.projector}}</p></li>
+                            <li><p>Наличие доски : {{val.desk}}</p></li>
+                            <li><p>Наличие кондиционера : {{val.condition}}</p></li>
+                            <li><button type="button" class="btn btn-dark"><a href ="{% url 'booking' pk=val.id %}" >Забронировать</a></button></li>
 
                             <br>
-                          </tr>
+                          </ul>
                                   </div>
                         {% endfor %}
 </div>

@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% extends 'authapp/Base.html' %}
+{% load static %}
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -6,14 +8,15 @@
 </head>
 <body>
 	
-	<form method="POST">
-		{% csrf_token %}
+	{% block context %}
+		<form method = "POST" action="">
+			{% csrf_token %}
+			{{ form }}
+			<input type="submit" name="">
 
-		{{ form }}
-		
-		<input type="submit" name="">
+		</form>
 
-	</form>
+	{% endblock %}
 		
 
 

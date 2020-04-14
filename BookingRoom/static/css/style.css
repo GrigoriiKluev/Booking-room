@@ -2,6 +2,7 @@
 
 * {
 margin:0;
+
 padding:0;
 
 }
@@ -12,9 +13,12 @@ body {
 }
 
 .container{
-background: #eee;
+background: linear-gradient(to bottom, #ffffff, #5dadd5);
+background-color: #EEDDFF;
+border: 1px solid #EEDDFF;
+border-radius: 10px;
+width: 1200px;
 
- width: 1000px;
 }
 
 .description{
@@ -22,29 +26,69 @@ background: #eee;
    margin: 10px 10px 10px 10px;
    align-items: center;
    justify-content: center;
+   text-align: center;
 
 }
 
 .wrap {
     display:flex;
-    width: 900px;
+    width: 1000px;
     flex-flow: row wrap;
     position: center;
     justify-content: center;
+    margin: 20px 20px 20px 80px;
 }
 
 .log{
     justify-content: center;
     display:flex;
+}
+
+.login{
+    position: absolute;
+    z-index:1;
+    margin-left: 480px;
+    margin-top: 8px;
+}
 
 
-
+.image{
+    position:relative;
+    z-index:1;
+    background-color: #EEDDFF;
+    border: 1px solid #EEDDFF;
+    border-radius: 10px;
+    margin-left:0px;
+}
+img{
+    background-color: #EEDDFF;
+    border: 1px solid #EEDDFF;
+    border-radius: 10px;
+    width:400px;
+    height:300px;
 
 }
 .logo{
     align-items:center;
     justify-content: center;
-    height: 200px;
-    width: 1000px;
+    height: 50px;
+    width: 1200px;
+    background-color: #EEDDFF;
+    border: 1px solid #EEDDFF;
+    border-radius: 10px;
 
+}
+li {
+    list-style-type: none; /* Убираем маркеры */
+    }
+ul {
+    margin-left: 0; /* Отступ слева в браузере IE и Opera */
+    padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+   }
+
+p{
+font-weight: bold;
+}
+h4{
+font-weight: bold;
 }
