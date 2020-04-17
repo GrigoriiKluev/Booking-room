@@ -27,10 +27,10 @@ urlpatterns = [
     path('info/', include(mainappurls),name ='info'),
     path('', include(authappurls), name='auth'),
     
-    path('error.html/', mainappviews.UpdatedRoom.as_view(), name ='updated_room_page'),
+    path('error.html/', mainappviews.error, name='error'),
     path('booking/<int:pk>/', mainappviews.BookingDetails.as_view(), name='booking'),
-    path('update/', mainappviews.UpdatedRoom.as_view(), name ='updated_room_page'),
-    path('delete/<int:pk>/', mainappviews.DeleteBook.as_view(), name ='delete')
+    path('update/', mainappviews.UpdatedRoom.as_view(), name='updated_room_page'),
+    path('delete/<int:pk>/', mainappviews.DeleteBook.as_view(), name='delete')
     ]\
 + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

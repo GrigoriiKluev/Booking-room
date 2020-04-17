@@ -11,34 +11,27 @@
 </head>
 <body>
 
-{% block context %}
+        {% block context %}
 		
-                          <tr>Комната № :{{obj.id }}
-                            <td><p>Название : {{obj.room_name}}</p></td>
-                            <td><p>Кол-во мест : {{obj.seets_count}}</p></td>
-                              <td><p>Наличие проектора : {{obj.projector}}</p></td>
-                            <td><p>Наличие доски : {{obj.desk}}</p></td>
-                              <td>{% for field in form %}
-                                    {{ field.errors }}
-                                  {% endfor %}
-                              </td>
-						              </tr>
-  						
-                  
-  							<form action = "{% url 'updated_room_page' %}" method="post">
-  								{% csrf_token %}
-                                {{ form.name_of_field.errors }}
+                  <tr>Комната № :{{obj.id }}
+                    <td><p>Название : {{obj.room_name}}</p></td>
+                    <td><p>Кол-во мест : {{obj.seets_count}}</p></td>
+                      <td><p>Наличие проектора : {{obj.projector}}</p></td>
+                    <td><p>Наличие доски : {{obj.desk}}</p></td>
 
-  								{{ form }}
+                  </tr>
 
-                  
-  								<button type="submit" class="btn btn-success">Забронировать</button>
-  							
-  							</form>
-  		
+                    <form action = "{% url 'updated_room_page' %}" method="post">
+                        {% csrf_token %}
+                        <p> Забронировать с : {{ form.booking_time }}</p>
+                        <p> Забронировать до : {{ form.booked_time }}</p>
+                        <p> Комната :{{ form.booking }}</p>
+                        <p> День :{{ form.day }}</p>
 
+                        <button type="submit" class="btn btn-success">Забронировать</button>
 
-{% endblock %}
+                    </form>
+        {% endblock %}
 
 
 </body>

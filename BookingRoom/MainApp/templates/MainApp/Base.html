@@ -13,9 +13,17 @@
             <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
             <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
             <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+
     {% endblock %}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+    {% block js %}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+        <script src="{% static 'js/calendar.js' %}"></script>
+    {% endblock %}
 </head>
 	<body>
     {% block logo %}
@@ -46,8 +54,10 @@
             {% endblock %}
 
 </div>
+
     {% block footer %}
     <div class="log"><img class="logo" src="{% static 'image/metal.jpg' %}"  ></div>
     {% endblock %}
+
     </body>
 </html>

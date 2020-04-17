@@ -11,38 +11,22 @@
 
 </head>
 	<body>
-
                     {% block context %}
-
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Error{{object.id}}</h4>
-                                <h4>Введите корректное время брони</h4>
+                                <h4>Вы ввели не корректную дату и время брони или комната уже забронирована</h4>
                             </div>
-
-
-
   							<form action = "{% url 'updated_room_page' %}" method="post">
   								{% csrf_token %}
-
-
-  								{{ form }}
-
-
+                                <p> Забронировать с : {{ form.booking_time }}</p>
+                                <p> Забронировать до : {{ form.booked_time }}</p>
+                                <p> Комната :{{ form.booking }}</p>
+                                <p> День :{{ form.day }}</p>
   								<button type="submit" class="btn btn-success">Забронировать</button>
-
   							</form>
-                            </div>
-
-
-
+                        </div>
                     {% endblock %}
-
-
-
-
-
-                     }
 
     </body>
 </html>

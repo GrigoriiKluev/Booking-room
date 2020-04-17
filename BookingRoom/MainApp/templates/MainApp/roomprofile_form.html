@@ -11,14 +11,12 @@
     </title>
 
 </head>
-	<body>
+<body>
 
             {% block context %}
 
-<div class="wrap" >
-
+                <div class="wrap" >
                         {% for val in room %}
-
                         <div class="description">
                           <ul><h3>Комната № :{{val.id }}</h3>
                             <div class = "pic"><img src= "{{ MEDIA_ROOT }}{{ val.img_path.url }}" alt="My image" /></div>
@@ -29,16 +27,12 @@
                             <li><p>Наличие доски : {{val.desk}}</p></li>
                             <li><p>Наличие кондиционера : {{val.condition}}</p></li>
                             <li><button type="button" class="btn btn-dark"><a href ="{% url 'booking' pk=val.id %}" >Забронировать</a></button></li>
-
                             <br>
                           </ul>
-                                  </div>
+                        </div>
                         {% endfor %}
-</div>
-
+                </div>
 
             {% endblock %}
-
-        
-    </body>
+</body>
 </html>
