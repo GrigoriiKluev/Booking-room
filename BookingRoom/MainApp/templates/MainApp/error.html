@@ -17,15 +17,50 @@
                                 <h4 class="card-title">Error{{object.id}}</h4>
                                 <h4>Вы ввели не корректную дату и время брони или комната уже забронирована</h4>
                             </div>
-  							<form action = "{% url 'updated_room_page' %}" method="post">
+  							<form action = "{% url 'updated_room_page' %}" method="post" style="width: 300px;">
   								{% csrf_token %}
                                 <p> Забронировать с : {{ form.booking_time }}</p>
                                 <p> Забронировать до : {{ form.booked_time }}</p>
                                 <p> Комната :{{ form.booking }}</p>
                                 <p> День :{{ form.day }}</p>
-  								<button type="submit" class="btn btn-success">Забронировать</button>
+
+  								<button  type="submit" class="btn btn-success" >Забронировать</button>
+
   							</form>
                         </div>
+                     <div class = "timeline" data-mode="horizontal" style="margin-top:10px; margin-bottom: 10px;" >
+                            <div class="timeline__wrap">
+                                <div class="timeline__items">
+                                    {% for item in result %}
+                                        
+
+                                        <div class="timeline__item">
+                                            <div class="timeline__content">
+                                                    <h2>{{ item.booking }}</h2>
+                                                    <p>День: {{ item.day }}</p>
+                                                    <p>C: {{ item.booking_time }}</p>
+                                                    <p>До: {{ item.booked_time }}</p>
+                                                    <p> {{ item.status }}</p>
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+
+<script>
+    var tl = document.querySelectorAll('.timeline');
+        timeline(tl, {
+        mode:'horizontal',
+        verticalStartPosition: 'left',
+        visibleItems: 4,
+        horizontalStartPosition:'top',
+
+
+    })
+</script>
                     {% endblock %}
 
     </body>

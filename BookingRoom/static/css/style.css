@@ -40,15 +40,19 @@ width: 1200px;
 }
 
 .log{
-    justify-content: center;
+    justify-content: space-around;
     display:flex;
 }
 
 .login{
     position: absolute;
     z-index:1;
+
+    margin-top: 10px;
+
     margin-left: 480px;
-    margin-top: 8px;
+
+
 }
 
 
@@ -64,19 +68,43 @@ img{
     background-color: #EEDDFF;
     border: 1px solid #EEDDFF;
     border-radius: 10px;
-    width:400px;
-    height:300px;
+    width: 400px;
+    height: 300px;
 
 }
 .logo{
     align-items:center;
     justify-content: center;
-    height: 50px;
+    height: 62px;
     width: 1200px;
     background-color: #EEDDFF;
     border: 1px solid #EEDDFF;
     border-radius: 10px;
+    position:relative;
 
+}
+#logo2{
+    width: 170px;
+    height: 64px;
+    border-radius: 10px 10px 10px 10px;
+
+
+}
+
+.copy{
+    position: absolute;
+    z-index:1;
+    padding-left: 1000px;
+    padding-top: 20px;
+
+}
+
+.image2{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    z-index:1;
+    padding-right: 1200px;
 }
 li {
     list-style-type: none; /* Убираем маркеры */
