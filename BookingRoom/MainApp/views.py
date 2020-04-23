@@ -4,6 +4,7 @@ from django.views.generic import View, TemplateView, DeleteView, CreateView
 from MainApp.forms import BookingFormer
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http.response import JsonResponse
 
 
 class Info(TemplateView):
@@ -20,23 +21,36 @@ class Info(TemplateView):
 
 class BookingDetails(LoginRequiredMixin, CreateView):
     login_url = '/login/'
+    title = "Бронирование "
 
     def get(self, request, pk):
-        title = "Бронирование "
         obj = get_object_or_404(RoomProfile, pk=pk)
+        #book = BookingProfile.objects.filter(booking=pk)
+
+        '''
+        result = []
+        for item in book:
+            result.append({
+                'id': item.id,
+                'day': item.day,
+                'starttime': item.booking_time,
+                'endtime': item.booked_time,
+            })
+        json = JsonResponse(result, safe=False)
+        '''
 
         if request.method == "POST":
             room_form = BookingFormer(request.POST, request.FILES)
             if room_form.is_valid():
                 room_form.save()
-
                 return HttpResponseRedirect(reverse("updated_room_page"))
         else:
             room_form = BookingFormer()
         context = {
-            'title': title,
+            'title': self.title,
             'form': room_form,
             'obj': obj,
+            'result': BookingProfile.get_items,
         }
         return render(request, "MainApp/booking-details.html", context)
 
@@ -54,29 +68,21 @@ class UpdatedRoom(LoginRequiredMixin, View):
             'obj': BookingProfile.get_items,
             'room': RoomProfile.get_items
         }
-        return render(request, self.template_name, context)
+        return render(request, "MainApp/updated-room-page.html", context)
 
-    @staticmethod
-    def post(request):
+    def post(self, request):
         book_form = BookingFormer(request.POST)
+        err = HttpResponseRedirect(reverse('error'))
+        update = HttpResponseRedirect(reverse('updated_room_page'))
         if book_form.is_valid() and BookingProfile.correct_time:
             data_day = book_form.cleaned_data.get('day')
             input_time_from = book_form.cleaned_data.get('booking_time')
             input_time_to = book_form.cleaned_data.get('booked_time')
             book = book_form.cleaned_data.get('booking')
-            update = HttpResponseRedirect(reverse('updated_room_page'))
-            BookingProfile.booking_compare(data_day, book, data_day, input_time_to, input_time_from, book_form, request,
-                                           update)
-            return HttpResponseRedirect(reverse("updated_room_page"))
+            callback = BookingProfile.booking_compare(data_day, book, data_day, input_time_to, input_time_from, book_form, request,update,err)
+            return callback
         else:
-            title = "Обновленная Информация"
-            room_form = BookingFormer()
-            context = {
-                'title': title,
-                'form': room_form,
-                'obj': RoomProfile.get_items,
-            }
-            return render(request, "MainApp/error.html", context)
+            return HttpResponseRedirect(reverse('error'))
 
 
 class DeleteBook(LoginRequiredMixin, DeleteView):
@@ -101,5 +107,7 @@ def error(request):
         'title': title,
         'form': room_form,
         'obj': RoomProfile.get_items,
+        'result': BookingProfile.get_items,
     }
     return render(request, "MainApp/error.html", context)
+

@@ -48,6 +48,10 @@ class BookingProfile(models.Model):
     @staticmethod
     def get_items():
         return BookingProfile.objects.all()
+    @staticmethod
+    def count_items():
+        count = BookingProfile.objects.all().count()
+        return count
 
     @staticmethod
     def delete_item():
@@ -65,30 +69,25 @@ class BookingProfile(models.Model):
                 return True
 
     @staticmethod
-    def booking_compare(day, book, data_day, input_time_to, input_time_from, book_form, request, update):
+    def booking_compare(day, book, data_day, input_time_to, input_time_from, book_form, request,update,error):
         book_query = BookingProfile.objects.filter(day=day, booking=book)
         for item in book_query:
-            if item.day == data_day and item.booking_time <= input_time_from <= item.booked_time \
-                    and item.booking_time >= input_time_to <= item.booked_time:
-                return HttpResponseRedirect(reverse("error"))
-            elif item.day == data_day and item.booking_time >= input_time_from <= item.booking_time and \
-                    item.booking_time <= input_time_to <= item.booked_time:
-                return HttpResponseRedirect(reverse("error"))
-            elif item.day == data_day and item.booked_time >= input_time_from >= item.booking_time and \
-                    input_time_to <= item.booked_time:
-                return HttpResponseRedirect(reverse("error"))
-            elif item.day == data_day and input_time_from <= item.booking_time and \
-                    input_time_to >= item.booked_time:
-                return HttpResponseRedirect(reverse("error"))
-            elif item.day == data_day and item.booked_time >= input_time_from >= item.booking_time and \
-                    item.booking_time <= input_time_to >= item.booked_time:
-                return HttpResponseRedirect(reverse("error"))
+            if item.day == data_day and item.booking_time <= input_time_from <= item.booked_time and item.booking_time >= input_time_to <= item.booked_time:
+                return error
+            elif item.day == data_day and item.booking_time >= input_time_from <= item.booking_time and item.booking_time <= input_time_to <= item.booked_time:
+                return error
+            elif item.day == data_day and item.booked_time >= input_time_from >= item.booking_time and input_time_to <= item.booked_time:
+                return error
+            elif item.day == data_day and input_time_from <= item.booking_time and input_time_to >= item.booked_time:
+                return error
+            elif item.day == data_day and item.booked_time >= input_time_from >= item.booking_time and item.booking_time <= input_time_to >= item.booked_time:
+                return error
         else:
             owner = book_form.save(commit=False)
             owner.author = request.user
             owner.save()
-
             return update
+
 
 
 def time_in_range(start, end, x):

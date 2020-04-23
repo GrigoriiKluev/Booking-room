@@ -12,6 +12,7 @@
     {% block css %}
             <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
             <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/timeline.min.css' %}">
             <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
 
@@ -21,31 +22,44 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src = "https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+        <script src ="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
         <script src="{% static 'js/calendar.js' %}"></script>
+        <script src="{% static 'js/timeline.min.js' %}"></script>
+        <script src="{% static 'js/timeline.js' %}"></script>
+
     {% endblock %}
+
 </head>
 	<body>
     {% block logo %}
             <div class="log">
                 <div class="image">
-                     <a href="{% url 'mainapp:RoomInfo' %}"> <img class="logo" src="{% static 'image/metal.jpg' %}"/></a>
+                     <a href="{% url 'mainapp:RoomInfo' %}">
+                         <img class="logo" src="{% static 'image/metal.jpg' %}"/></a>
+
                 </div>
-                    <div class="login">
+
+                <div class="image2">
+                    <a href="{% url 'mainapp:RoomInfo' %}">
+                        <img id = "logo2" src="{% static 'image/logo.jpg' %}"/></a>
+
+                </div>
+
+                <div class="login">
                 {% if request.user.is_authenticated %}
 
                     <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:register' %}" >Register</a></button>
-                    <b>{{ request.user }}</b>
                     <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:logout' %}" >Logout</a></button>
-
+                    <br><b>Ник: {{ request.user }}</b>
                 {% else %}
 
                     <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:register' %}" >Register</a></button>
                     <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:login' %}" >Login</a></button>
 
                 {% endif %}
-                    </div>
+                </div>
             </div>
+
     {% endblock %}
 <div class="container">
 
@@ -56,7 +70,12 @@
 </div>
 
     {% block footer %}
-    <div class="log"><img class="logo" src="{% static 'image/metal.jpg' %}"  ></div>
+    <div class="log">
+        <div class="image"><img class="logo" src="{% static 'image/footer.jpg' %}" ></div>
+        <div class ="copy"><p>&copy; 2020 GrigoryKlyuev<p></div>
+
+    </div>
+
     {% endblock %}
 
     </body>

@@ -18,7 +18,7 @@
                 <div class="wrap" >
                         {% for val in room %}
                         <div class="description">
-                          <ul><h3>Комната № :{{val.id }}</h3>
+                          <ul><h3>Комната № :{{ val.id }}</h3>
                             <div class = "pic"><img src= "{{ MEDIA_ROOT }}{{ val.img_path.url }}" alt="My image" /></div>
 
                             <li><h4>Название : {{val.room_name}}</h4></li>

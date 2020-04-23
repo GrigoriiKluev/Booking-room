@@ -23,6 +23,11 @@
                 <div class="image">
                      <img class="logo" src="{% static 'image/metal.jpg' %}"/>
                 </div>
+                <div class="image2">
+                    <a href="{% url 'mainapp:RoomInfo' %}">
+                        <img id = "logo2" src="{% static 'image/logo.jpg' %}"/></a>
+
+                </div>
             </div>
     {% endblock %}
 <div class="container">
@@ -33,7 +38,10 @@
 
 </div>
     {% block footer %}
-    <div class="log"><img class="logo" src="{% static 'image/metal.jpg' %}"  ></div>
+    <div class="log">
+        <div class="image"><img class="logo" src="{% static 'image/footer.jpg' %}" ></div>
+        <div class ="copy"><p>&copy; 2020 GrigoryKlyuev<p></div>
+    </div>
     {% endblock %}
     </body>
 </html>
