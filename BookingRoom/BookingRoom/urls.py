@@ -1,4 +1,3 @@
-
 """BookingRoom URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -24,7 +23,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('info/', include(mainappurls),name ='info'),
+    path('', include(mainappurls), name='info'),
     path('', include(authappurls), name='auth'),
     
     path('error.html/', mainappviews.error, name='error'),
@@ -33,5 +32,3 @@ urlpatterns = [
     path('delete/<int:pk>/', mainappviews.DeleteBook.as_view(), name='delete')
     ]\
 + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
