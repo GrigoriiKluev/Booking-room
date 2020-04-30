@@ -48,3 +48,9 @@ class UserRegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+    def clean(self, *args, **kwargs):
+        username = self.cleaned_data.get('username')
+        if len(username) > 10:
+            raise forms.ValidationError('This name is to large, please input again')
+        return super(UserRegisterForm, self).clean(*args, **kwargs)
