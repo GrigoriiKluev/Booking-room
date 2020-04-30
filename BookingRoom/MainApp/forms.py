@@ -9,7 +9,9 @@ class BookingFormer(forms.ModelForm):
         fields = ['booking_time', 'booked_time', 'day', 'booking']
         input_formats = ['%d/%m/%Y']
         widgets = {
-            'day': forms.DateInput()
+            'day': forms.DateInput(),
+            'booking_time': forms.TimeInput(),
+            'booked_time': forms.TimeInput(),
         }
 
     def clean(self):
