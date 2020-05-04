@@ -23,9 +23,24 @@
 
                             <li><h4>Название : {{val.room_name}}</h4></li>
                             <li><p>Кол-во мест : {{val.seets_count}}</p></li>
-                            <li><p>Наличие проектора : {{val.projector}}</p></li>
-                            <li><p>Наличие доски : {{val.desk}}</p></li>
-                            <li><p>Наличие кондиционера : {{val.condition}}</p></li>
+                               {% if val.projector == True %}
+                                     <li><p>Наличие проектора : <input type="checkbox" checked="checked" disabled /></p></li>
+                               {% else %}
+                                     <li><p>Наличие проектора : <input type="checkbox"  disabled /></p></li>
+                               {% endif %}
+
+                               {% if val.condition == True %}
+                                     <li><p>Наличие кондиционера : <input type="checkbox" checked="checked" disabled/></p></li>
+                               {% else %}
+                                     <li><p>Наличие кондиционера : <input type="checkbox"  disabled/></p></li>
+                               {% endif %}
+
+                               {% if val.desk == True %}
+                                     <li><p>Наличие доски : <input type="checkbox" checked="checked" disabled/></p></li>
+                               {% else %}
+                                    <li><p>Наличие доски : <input type="checkbox"  disabled/></p></li>
+                               {% endif %}
+
                             <li><button type="button" class="btn btn-dark"><a href ="{% url 'booking' pk=val.id %}" >Забронировать</a></button></li>
                             <br>
                           </ul>

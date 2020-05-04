@@ -5,6 +5,7 @@ from AuthApp.forms import UserLoginForm, UserRegisterForm
 
 
 def login_view(request):
+	title = "Авторизация"
 	#next_after = request.GET.get('next')
 	form = UserLoginForm(request.POST or None)
 	if form.is_valid():
@@ -14,9 +15,10 @@ def login_view(request):
 		login(request, user)
 		#if next_after:
 			#return redirect (next_after)
-		return redirect ('/info')
+		return redirect('/')
 	context = {
-		'form':form,
+		'form': form,
+		'title': title
 
 	}
 	return render (request, 'authapp/login.html', context )
@@ -24,22 +26,24 @@ def login_view(request):
 
 
 def register_view(request):
+	title = 'Регистрация'
 	next_after = request.GET.get('next')
 	form = UserRegisterForm(request.POST or None)
 	if form.is_valid():
-		user = form.save(commit = False)
+		user = form.save(commit=False)
 		password = form.cleaned_data.get('password')
 		user.set_password(password)
 		user.save()
-		new_user = authenticate(username= user.username, password = password)
+		new_user = authenticate(username=user.username, password=password)
 		login(request, new_user)
-		return redirect('/info')
+		return redirect('/')
 	context = {
-		'form':form,
+		'form': form,
+		'title': title
 
 	}
 	return render (request, 'authapp/signup.html', context )
 
 def logout_view(request):
 	logout(request)
-	return redirect('/info')
+	return redirect('/')

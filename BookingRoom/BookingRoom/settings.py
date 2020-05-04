@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import dj_database_url
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,8 +27,7 @@ SECRET_KEY = 'fxf0d+03k9qql$uf+4so2rm@o!aac#*3y%23eosj_42hzx*oa='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,10 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'MainApp',
     'AuthApp',
+    #'cloudinary',
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -88,6 +93,10 @@ DATABASES = {
 }
 
 
+
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -107,6 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -124,14 +134,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 LOGIN_REDIRECT_URL = '/MainApp/templates/MainApp/roomprofile_form.html'
 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'pict/')
-MEDIA_URL = '/pict/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+MEDIA_URL = '/images/'
 AUTH_USER_MODEL = 'AuthApp.BookUser'
+
+
+'''
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'hglrfoy90',
+    'API_KEY': '249386617932***',
+    'API_SECRET': 'f4DHvk-kCRXL9nkdWggRPNvAR**',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+'''

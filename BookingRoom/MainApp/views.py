@@ -22,43 +22,28 @@ class Info(TemplateView):
 class BookingDetails(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     title = "Бронирование "
+    template_name = "MainApp/booking-details.html"
+    success_url = "updated_room_page"
 
     def get(self, request, pk):
         obj = get_object_or_404(RoomProfile, pk=pk)
-        #book = BookingProfile.objects.filter(booking=pk)
+        room_form = BookingFormer(request.POST, initial={'booking':pk})
 
-        '''
-        result = []
-        for item in book:
-            result.append({
-                'id': item.id,
-                'day': item.day,
-                'starttime': item.booking_time,
-                'endtime': item.booked_time,
-            })
-        json = JsonResponse(result, safe=False)
-        '''
-
-        if request.method == "POST":
-            room_form = BookingFormer(request.POST, request.FILES)
-            if room_form.is_valid():
-                room_form.save()
-                return HttpResponseRedirect(reverse("updated_room_page"))
-        else:
-            room_form = BookingFormer()
         context = {
             'title': self.title,
             'form': room_form,
             'obj': obj,
             'result': BookingProfile.get_items,
         }
-        return render(request, "MainApp/booking-details.html", context)
+        return render(request, self.template_name, context)
 
-
-class UpdatedRoom(LoginRequiredMixin, View):
+class UpdatedRoom(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     redirect_field_name = 'author'
     template_name = "MainApp/updated-room-page.html"
+    model = BookingProfile
+    fields = ['booking']
+
 
     def get(self, request):
         title = "Обновленная Информация"
@@ -79,7 +64,7 @@ class UpdatedRoom(LoginRequiredMixin, View):
             input_time_from = book_form.cleaned_data.get('booking_time')
             input_time_to = book_form.cleaned_data.get('booked_time')
             book = book_form.cleaned_data.get('booking')
-            callback = BookingProfile.booking_compare(data_day, book, data_day, input_time_to, input_time_from, book_form, request,update,err)
+            callback = BookingProfile.booking_compare(data_day, book, data_day, input_time_to, input_time_from,book_form, request, update, err)
             return callback
         else:
             return HttpResponseRedirect(reverse('error'))

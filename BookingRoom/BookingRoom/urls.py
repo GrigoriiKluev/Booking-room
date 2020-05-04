@@ -23,7 +23,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('info/', include(mainappurls),name ='info'),
+    path('', include(mainappurls), name='info'),
     path('', include(authappurls), name='auth'),
     
     path('error.html/', mainappviews.error, name='error'),

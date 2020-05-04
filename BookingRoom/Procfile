@@ -1,0 +1,1 @@
+web: gunicorn BookingRoom.wsgi --log-file -

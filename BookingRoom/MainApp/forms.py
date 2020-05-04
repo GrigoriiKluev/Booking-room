@@ -1,15 +1,18 @@
 from django import forms
-from .models import BookingProfile
+from .models import BookingProfile, RoomProfile
 import datetime
 
 
 class BookingFormer(forms.ModelForm):
     class Meta:
         model = BookingProfile
-        fields = ['booking_time', 'booked_time', 'day', 'booking']
+
+        fields = ['booking_time', 'booked_time', 'day','booking']
         input_formats = ['%d/%m/%Y']
         widgets = {
-            'day': forms.DateInput()
+            'day': forms.DateInput(),
+            'booking_time': forms.TimeInput(),
+            'booked_time': forms.TimeInput(),
         }
 
     def clean(self):
@@ -17,6 +20,7 @@ class BookingFormer(forms.ModelForm):
         input_time_from = cleaned_data.get('booking_time')
         input_time_to = cleaned_data.get('booked_time')
         day = cleaned_data.get('day')
+
 
         if input_time_to < input_time_from:
             raise forms.ValidationError('Введите корректное время брони')

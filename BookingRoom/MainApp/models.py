@@ -1,14 +1,12 @@
 from django.db import models
-from django.shortcuts import reverse, HttpResponseRedirect
 from django.utils.timezone import now
 from AuthApp.models import BookUser
 from datetime import date
 
 
 class RoomProfile(models.Model):
-    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     room_name = models.CharField(verbose_name="Название ", max_length=64, blank=True)
-    img_path = models.ImageField(upload_to='pict')
+    img_path = models.ImageField(upload_to='assets')
     seets_count = models.PositiveIntegerField(verbose_name="Количество мест", default=0)
     projector = models.BooleanField(verbose_name="Наличие проектора", default=True)
     desk = models.BooleanField(verbose_name="Наличие доски", default=True)
@@ -21,13 +19,16 @@ class RoomProfile(models.Model):
     def get_items():
         return RoomProfile.objects.all()
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
 
 class BookingProfile(models.Model):
     author = models.ForeignKey(BookUser, on_delete=models.CASCADE, verbose_name='Owner', blank=True, null=True)
     booking = models.ForeignKey(RoomProfile, on_delete=models.CASCADE)
     day = models.DateField(verbose_name="Дата", default=date.today)
     booking_time = models.TimeField(verbose_name=" Время брони c ", default=now)
-    booked_time = models.TimeField(verbose_name="Время брони до", null=True, blank=True)
+    booked_time = models.TimeField(verbose_name="Время брони до", default=now)
     status = models.CharField(verbose_name='Статус', max_length=64, blank=True)
 
     def __str__(self):
@@ -38,10 +39,10 @@ class BookingProfile(models.Model):
         get_other = BookingProfile.objects.all()
         for other in get_other:
             if other.booked_time is None:
-                other.status = 'Комната свободна'
+                other.status = 'Свободно'
                 other.save()
             else:
-                other.status = 'Комната занята'
+                other.status = 'Занята'
                 other.save()
         return get_other
 
@@ -69,7 +70,7 @@ class BookingProfile(models.Model):
                 return True
 
     @staticmethod
-    def booking_compare(day, book, data_day, input_time_to, input_time_from, book_form, request,update,error):
+    def booking_compare(day, book, data_day, input_time_to, input_time_from, book_form, request, update, error):
         book_query = BookingProfile.objects.filter(day=day, booking=book)
         for item in book_query:
             if item.day == data_day and item.booking_time <= input_time_from <= item.booked_time and item.booking_time >= input_time_to <= item.booked_time:

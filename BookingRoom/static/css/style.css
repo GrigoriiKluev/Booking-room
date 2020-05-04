@@ -2,7 +2,6 @@
 
 * {
 margin:0;
-
 padding:0;
 
 }
@@ -47,23 +46,13 @@ width: 1200px;
 .login{
     position: absolute;
     z-index:1;
-
     margin-top: 10px;
-
     margin-left: 480px;
-
+    display:flex;
+    justify-content:space-between;
 
 }
 
-
-.image{
-    position:relative;
-    z-index:1;
-    background-color: #EEDDFF;
-    border: 1px solid #EEDDFF;
-    border-radius: 10px;
-    margin-left:0px;
-}
 img{
     background-color: #EEDDFF;
     border: 1px solid #EEDDFF;
@@ -105,6 +94,19 @@ img{
     position: absolute;
     z-index:1;
     padding-right: 1200px;
+}
+.user{
+    padding:10px 0px ;
+    text-align:right;
+}
+.pic{
+    float:left;
+    margin-right:20px;
+    margin-bottom: 10px;
+}
+.text{
+    text-align:left;
+
 }
 li {
     list-style-type: none; /* Убираем маркеры */
