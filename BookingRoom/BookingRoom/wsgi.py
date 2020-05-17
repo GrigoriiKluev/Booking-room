@@ -1,3 +1,4 @@
+
 """
 WSGI config for BookingRoom project.
 
@@ -15,4 +16,7 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BookingRoom.settings')
 
 application = get_wsgi_application()
+
+
+
 

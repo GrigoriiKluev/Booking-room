@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+    <meta name="viewport" content="width=1200" />
 	<title>{% block title %}
             {{ title|title }}
            {% endblock %}
@@ -14,6 +15,7 @@
             <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
             <link rel="stylesheet" type="text/css" href="{% static 'css/timeline.min.css' %}">
             <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.css' %}">
+            <link rel="stylesheet" href="{% static 'css/jquery.timepicker.min.css' %}">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
 
     {% endblock %}
@@ -23,51 +25,52 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src ="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+        <script src="{% static 'js/jquery.timepicker.min.js' %}"></script>
         <script src="{% static 'js/calendar.js' %}"></script>
+        <script src ="{% static 'js/timepicker.js' %}"></script>
         <script src="{% static 'js/timeline.min.js' %}"></script>
         <script src="{% static 'js/timeline.js' %}"></script>
+
 
     {% endblock %}
 
 </head>
 	<body>
+    <div class="container">
     {% block logo %}
             <div class="log">
                 <div class="image">
                      <a href="{% url 'mainapp:RoomInfo' %}">
                          <img class="logo" src="{% static 'image/metal.jpg' %}"/></a>
-
                 </div>
-
                 <div class="image2">
                     <a href="{% url 'mainapp:RoomInfo' %}">
                         <img id = "logo2" src="{% static 'image/logo.jpg' %}"/></a>
-
                 </div>
-
                 <div class="login">
                 {% if request.user.is_authenticated %}
+                    <button type = "button" class="btn btn-dark" style="margin:5px 5px" ><a href ="{% url 'authapp:register' %}" >Register</a></button>
+                    <button type = "button" class="btn btn-dark" style="margin:5px 5px" ><a href ="{% url 'authapp:logout' %}" >Logout</a></button>
 
-                    <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:register' %}" >Register</a></button>
-                    <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:logout' %}" >Logout</a></button>
-                    <br><b>Ник: {{ request.user }}</b>
                 {% else %}
-
-                    <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:register' %}" >Register</a></button>
-                    <button type = "button" class="btn btn-dark" ><a href ="{% url 'authapp:login' %}" >Login</a></button>
-
+                    <button type = "button" class="btn btn-dark"  style="margin:5px 5px"><a href ="{% url 'authapp:register' %}" >Register</a></button>
+                    <button type = "button" class="btn btn-dark" style="margin:5px 5px" ><a href ="{% url 'authapp:login' %}" >Login</a></button>
                 {% endif %}
                 </div>
-            </div>
-
+             </div>
+                {% if request.user.is_authenticated %}
+                    <div class="user">
+                        <b>Пользователь: {{ request.user }}</b>
+                    </div>
+                {% endif %}
     {% endblock %}
-<div class="container">
+
 
             {% block context %}
 
             {% endblock %}
 
-</div>
+
 
     {% block footer %}
     <div class="log">
@@ -77,6 +80,6 @@
     </div>
 
     {% endblock %}
-
+    </div>
     </body>
 </html>

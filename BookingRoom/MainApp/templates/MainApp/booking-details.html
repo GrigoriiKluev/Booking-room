@@ -12,27 +12,45 @@
 <body>
 
         {% block context %}
-		
-                  <tr>Комната № :{{obj.id }}
-                    <td><p>Название : {{obj.room_name}}</p></td>
-                    <td><p>Кол-во мест : {{obj.seets_count}}</p></td>
-                      <td><p>Наличие проектора : {{obj.projector}}</p></td>
-                    <td><p>Наличие доски : {{obj.desk}}</p></td>
+            <div >
+                <ul>
+                    <div class = "pic" ><img src= "{{ MEDIA_ROOT }}{{ obj.img_path.url }}" alt="My image" /></div>
+                    <div class="text">
+                        <li><h4>Название : {{obj.room_name}}</h4></li>
+                    <li><p>Кол-во мест : {{obj.seets_count}}</p></li>
+                       {% if obj.projector == True %}
+                             <li><p>Наличие проектора : <input type="checkbox" checked="checked" disabled /></p></li>
+                       {% else %}
+                             <li><p>Наличие проектора : <input type="checkbox"  disabled /></p></li>
+                       {% endif %}
 
-                  </tr>
+                       {% if obj.condition == True %}
+                             <li><p>Наличие кондиционера : <input type="checkbox" checked="checked" disabled/></p></li>
+                       {% else %}
+                             <li><p>Наличие кондиционера : <input type="checkbox"  disabled/></p></li>
+                       {% endif %}
 
-                    <form action = "{% url 'updated_room_page' %}" method="post" style="width: 300px;">
+                       {% if obj.desk == True %}
+                             <li><p>Наличие доски : <input type="checkbox" checked="checked" disabled/></p></li>
+                       {% else %}
+                            <li><p>Наличие доски : <input type="checkbox"  disabled/></p></li>
+                       {% endif %}
+                    </div>
+                  </ul>
+
+            </div>
+
+                    <form id="books" action = "{% url 'updated_room_page' %}" method="post" style="width: 300px;">
                         {% csrf_token %}
                         <p> Забронировать с : {{ form.booking_time }}</p>
                         <p> Забронировать до : {{ form.booked_time }}</p>
-                        <p> Комната :{{ form.booking }}</p>
+                        <p> Комната : {{ form.booking }}</p>
                         <p> День :{{ form.day }}</p>
 
                         <button type="submit" class="btn btn-success">Забронировать</button>
-
                     </form>
 
-                        <div class = "timeline" data-mode="horizontal" style="margin-top:10px; margin-bottom: 10px;" >
+                        <div class = "timeline" data-mode="horizontal" style="margin-top:30px; margin-bottom: 30px;" >
                             <div class="timeline__wrap">
                                 <div class="timeline__items">
                                     {% for item in result %}
@@ -62,6 +80,7 @@
         horizontalStartPosition:'top',
     })
 </script>
+
         {% endblock %}
 
 </body>

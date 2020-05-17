@@ -1,3 +1,4 @@
+
 $(function(){
     $("#id_booking_time").timepicker({
         timeFormat: 'HH:mm:ss',
@@ -15,4 +16,4 @@ $(function(){
         defaultTime: '00:00:00',
         startTime: '08:00:00',
     });
-});
+
