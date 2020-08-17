@@ -1,10 +1,12 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse, get_object_or_404
+from django.shortcuts import render, HttpResponseRedirect, reverse, get_object_or_404, HttpResponse
 from MainApp.models import RoomProfile, BookingProfile
 from django.views.generic import View, TemplateView, DeleteView, CreateView
 from MainApp.forms import BookingFormer
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import JsonResponse
+from django.template.loader import render_to_string
+import json
 
 
 class Info(TemplateView):
@@ -42,7 +44,7 @@ class UpdatedRoom(LoginRequiredMixin, CreateView):
     redirect_field_name = 'author'
     template_name = "MainApp/updated-room-page.html"
     model = BookingProfile
-    fields = ['booking']
+    #fields = ['booking']
 
 
     def get(self, request):
@@ -56,7 +58,8 @@ class UpdatedRoom(LoginRequiredMixin, CreateView):
         return render(request, "MainApp/updated-room-page.html", context)
 
     def post(self, request):
-        book_form = BookingFormer(request.POST)
+        #booking = request.POST.get('booking', '')
+        book_form = BookingFormer(request.POST )
         err = HttpResponseRedirect(reverse('error'))
         update = HttpResponseRedirect(reverse('updated_room_page'))
         if book_form.is_valid() and BookingProfile.correct_time:
@@ -71,18 +74,30 @@ class UpdatedRoom(LoginRequiredMixin, CreateView):
 
 
 class DeleteBook(LoginRequiredMixin, DeleteView):
+
     login_url = '/login/'
     redirect_field_name = 'author'
     model = BookingProfile
-    template_name = "MainApp/delete_book.html"
-    success_url = reverse_lazy('updated_room_page')
+    template_name = "Mainapp/delete/<pk:int>"
+    success_url = reverse_lazy('delete')
 
-    def delete(self, request, *args, **kwargs):
+    def get(self, request, pk, *args, **kwargs):
         self.object = self.get_object()
         if self.request.user != self.object.author:
             return self.handle_no_permission()
-        self.object.delete()
-        return HttpResponseRedirect(self.success_url)
+        data = dict()
+        ids = request.GET.get('pk')
+        x = get_object_or_404(BookingProfile, pk=ids)
+
+        if request.method == "GET":
+            x.delete()
+            data["deleted"] = True
+
+        return JsonResponse(data)
+
+        #return HttpResponseRedirect(self.success_url)
+        #return HttpResponse(data)
+
 
 
 def error(request):

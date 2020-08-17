@@ -21,7 +21,7 @@
     {% endblock %}
 
     {% block js %}
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="{% static 'js/jquery.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src ="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
@@ -30,6 +30,7 @@
         <script src ="{% static 'js/timepicker.js' %}"></script>
         <script src="{% static 'js/timeline.min.js' %}"></script>
         <script src="{% static 'js/timeline.js' %}"></script>
+        <script src="{% static 'js/delete.js' %}"></script>"
 
 
     {% endblock %}
